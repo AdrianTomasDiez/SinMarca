@@ -7,3 +7,4 @@ app/
 *.ipa
 cobalt-check
 server/cookies.json
+server/keys.json

@@ -14,7 +14,11 @@ services:
       API_URL: "http://192.168.1.15:9000/"
       # Para Instagram, si da error: crea cookies.json y descomenta estas líneas y "volumes".
       # COOKIE_PATH: "/cookies.json"
-    # volumes:
+      # Clave en keys.json (no se sube a GitHub). Con API_AUTH_REQUIRED, sin clave no se atiende a nadie.
+      API_KEY_URL: "file:///keys.json"
+      # API_AUTH_REQUIRED: 1
+    volumes:
+      - ./keys.json:/keys.json:ro
     #   - ./cookies.json:/cookies.json
     labels:
       - com.centurylinklabs.watchtower.scope=cobalt
