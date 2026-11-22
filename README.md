@@ -1,4 +1,4 @@
-# SinMarca
+# Saver
 
 App de iPhone para guardar en Fotos vídeos de TikTok, X e Instagram sin marca de agua.
 Usa un servidor [cobalt](https://github.com/imputnet/cobalt) propio para sacar el vídeo original.
@@ -15,12 +15,12 @@ El iPhone tiene que estar en la misma wifi y el PC encendido.
 ## 2. Compilar la app (GitHub Actions)
 
 1. Sube este proyecto a un repositorio de GitHub (si es público, los minutos de Mac son gratis).
-2. Cada `push` compila. En la pestaña **Actions** → última ejecución → descarga `SinMarca-ipa`.
+2. Cada `push` compila. En la pestaña **Actions** → última ejecución → descarga `Saver-ipa`.
 
 ## 3. Instalar en el iPhone (desde Windows)
 
 1. Instala iTunes (versión web de Apple, no la de Microsoft Store) y [Sideloadly](https://sideloadly.io).
-2. Conecta el iPhone por cable, arrastra `SinMarca.ipa` a Sideloadly y entra con tu Apple ID.
+2. Conecta el iPhone por cable, arrastra `Saver.ipa` a Sideloadly y entra con tu Apple ID.
 3. En el iPhone: Ajustes › General › VPN y gestión de dispositivos → confía en tu Apple ID.
 4. Activa el Modo desarrollador si lo pide (Ajustes › Privacidad y seguridad).
 
@@ -29,4 +29,10 @@ Con Apple ID gratuito la app caduca a los 7 días: vuelve a instalarla con Sidel
 
 ## Uso
 
-Copia el enlace en TikTok/X/Instagram → abre SinMarca → **Pegar** → **Descargar a Fotos**.
+- **Desde la app de vídeos:** Compartir → Saver (en TikTok: Compartir → Más). Se guarda solo en Fotos.
+  Si no ves Saver, desliza los iconos hasta el final → Más → actívala.
+- **Desde Saver:** copia el enlace → abre Saver → **Pegar** → **Descargar a Fotos**.
+
+Abre Saver una vez antes de usar Compartir, para aceptar los permisos de red local y de Fotos.
+Compartir usa siempre el servidor `192.168.1.15:9000`; si cambia la IP, cámbiala en
+`Shared/Downloader.swift` (`defaultServer`).

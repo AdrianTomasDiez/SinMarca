@@ -1,26 +1,59 @@
 # XcodeGen genera el .xcodeproj a partir de este archivo (en GitHub Actions).
-name: SinMarca
+name: Saver
 options:
   deploymentTarget:
     iOS: "16.0"
+settings:
+  base:
+    MARKETING_VERSION: "1.1"
+    CURRENT_PROJECT_VERSION: "2"
+    TARGETED_DEVICE_FAMILY: "1"
 targets:
-  SinMarca:
+  Saver:
     type: application
     platform: iOS
-    sources: [SinMarca]
+    sources: [Saver, Shared]
+    dependencies:
+      - target: SaverShare
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.sinmarca.app
-        MARKETING_VERSION: "1.0"
-        CURRENT_PROJECT_VERSION: "1"
-        TARGETED_DEVICE_FAMILY: "1"
+        PRODUCT_BUNDLE_IDENTIFIER: com.saver.app
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
-      path: SinMarca/Info.plist
+      path: Saver/Info.plist
       properties:
-        CFBundleDisplayName: SinMarca
+        CFBundleDisplayName: Saver
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen: {}
         NSPhotoLibraryAddUsageDescription: Para guardar los vídeos descargados en Fotos.
         NSLocalNetworkUsageDescription: Para conectar con tu servidor cobalt en casa.
         # El servidor de casa va por http, no https.
         NSAppTransportSecurity:
           NSAllowsArbitraryLoads: true
+
+  # Extensión del menú Compartir.
+  SaverShare:
+    type: app-extension
+    platform: iOS
+    sources: [Share, Shared]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.saver.app.share
+    info:
+      path: Share/Info.plist
+      properties:
+        CFBundleDisplayName: Saver
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSPhotoLibraryAddUsageDescription: Para guardar los vídeos descargados en Fotos.
+        NSLocalNetworkUsageDescription: Para conectar con tu servidor cobalt en casa.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShareViewController
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsWebURLWithMaxCount: 1
+              NSExtensionActivationSupportsText: true

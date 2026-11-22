@@ -1,6 +1,9 @@
-SinMarca.xcodeproj/
-SinMarca/Info.plist
+*.xcodeproj/
+Saver/Info.plist
+Share/Info.plist
 build/
 Payload/
+app/
 *.ipa
+cobalt-check
 server/cookies.json

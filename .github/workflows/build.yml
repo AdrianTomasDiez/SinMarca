@@ -10,6 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Comprobar lógica de cobalt
+        run: |
+          swiftc Shared/Cobalt.swift Tests/main.swift -o cobalt-check
+          ./cobalt-check
+
       - name: Generar proyecto Xcode
         run: |
           brew install xcodegen
@@ -18,17 +23,18 @@ jobs:
       # Sin firmar: Sideloadly/AltStore la firman con tu Apple ID al instalarla.
       - name: Compilar
         run: |
-          xcodebuild -project SinMarca.xcodeproj -target SinMarca \
+          xcodebuild -project Saver.xcodeproj -target Saver \
             -configuration Release -sdk iphoneos \
             SYMROOT="$PWD/build" CODE_SIGNING_ALLOWED=NO build
 
       - name: Empaquetar .ipa
         run: |
+          test -d build/Release-iphoneos/Saver.app/PlugIns/SaverShare.appex
           mkdir Payload
-          cp -R build/Release-iphoneos/SinMarca.app Payload/
-          zip -qr SinMarca.ipa Payload
+          cp -R build/Release-iphoneos/Saver.app Payload/
+          zip -qr Saver.ipa Payload
 
       - uses: actions/upload-artifact@v4
         with:
-          name: SinMarca-ipa
-          path: SinMarca.ipa
+          name: Saver-ipa
+          path: Saver.ipa
