@@ -10,6 +10,10 @@ ENV PORT=7860 \
 # helper.mjs escucha en PORT, arranca cobalt en el 9000 y añade /descargar para el Atajo.
 COPY helper.mjs /app/helper.mjs
 
+# TikToks +18 con cookies de una cuenta (ver patch-tiktok.mjs).
+COPY patch-tiktok.mjs /tmp/patch-tiktok.mjs
+RUN node /tmp/patch-tiktok.mjs
+
 # La clave llega como secreto (no va en el código) y se escribe al arrancar.
-# COOKIES_JSON (opcional) = sesión de X para vídeos +18: {"twitter":["auth_token=…; ct0=…"]}
+# COOKIES_JSON (opcional) = sesiones para vídeos +18: {"twitter":["auth_token=…; ct0=…"],"tiktok":["sessionid=…"]}
 CMD ["sh", "-c", "printf '%s' \"$KEYS_JSON\" > /tmp/keys.json && if [ -n \"$COOKIES_JSON\" ]; then printf '%s' \"$COOKIES_JSON\" > /tmp/cookies.json && export COOKIE_PATH=/tmp/cookies.json; fi && export API_URL=\"${API_URL:-$RENDER_EXTERNAL_URL/}\" && exec node helper.mjs"]

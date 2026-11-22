@@ -49,6 +49,16 @@ En Render → servicio **saver** → **Environment** → **Add** `COOKIES_JSON` 
 ```
 **Save and deploy**. Si cierras sesión en esa cuenta, las cookies dejan de valer y hay que repetirlo.
 
+### TikToks +18
+
+Igual, con una cuenta de TikTok mayor de edad: tiktok.com → F12 → **Application** → **Cookies** →
+`https://www.tiktok.com` → copia `sessionid`. `COOKIES_JSON` puede llevar las dos:
+
+```
+{"twitter":["auth_token=PEGA-AQUI; ct0=PEGA-AQUI"],"tiktok":["sessionid=PEGA-AQUI"]}
+```
+(cobalt no lo trae de serie: lo añade `cloud/patch-tiktok.mjs`.)
+
 ## 4. Pasárselo a un amigo
 
 Mantén pulsado el atajo → **Compartir** → **Copiar enlace de iCloud** y mándaselo.
