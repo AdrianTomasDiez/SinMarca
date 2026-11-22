@@ -5,8 +5,9 @@ services:
     runtime: docker
     plan: free
     rootDir: cloud # solo se vuelve a desplegar cuando cambia la carpeta cloud
-    dockerfilePath: ./cloud/Dockerfile
-    dockerContext: ./cloud
+    # Render resuelve estas rutas desde rootDir (no desde la raíz del repo).
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: /
     envVars:
       - key: PORT
