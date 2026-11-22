@@ -13,8 +13,8 @@ enum Phase: Equatable {
 }
 
 struct ContentView: View {
-    @AppStorage("server") private var server = Settings.defaultServer
-    @AppStorage("apiKey") private var apiKey = ""
+    @AppStorage("serverURL") private var server = Config.server
+    @AppStorage("serverKey") private var apiKey = Config.apiKey
     @State private var link = ""
     @State private var phase = Phase.idle
     @State private var showSettings = false
@@ -212,7 +212,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField(Settings.defaultServer, text: $server)
+                    TextField(Config.server, text: $server)
                         .keyboardType(.URL)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
@@ -220,7 +220,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Servidor cobalt")
                 } footer: {
-                    Text("El menú Compartir usa siempre \(Settings.defaultServer).")
+                    Text("El menú Compartir usa siempre el servidor con el que se compiló la app.")
                 }
                 Section {
                     LabeledContent("Versión", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "–")

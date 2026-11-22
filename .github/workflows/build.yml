@@ -15,6 +15,19 @@ jobs:
           swiftc Shared/Cobalt.swift Tests/main.swift -o cobalt-check
           ./cobalt-check
 
+      # Servidor y clave vienen de Settings → Secrets and variables → Actions (no están en el código).
+      - name: Configurar servidor
+        env:
+          SERVER_URL: ${{ vars.SERVER_URL }}
+          API_KEY: ${{ secrets.COBALT_API_KEY }}
+        run: |
+          cat > Shared/Config.swift <<EOF
+          enum Config {
+              static let server = "${SERVER_URL:-http://192.168.1.15:9000}"
+              static let apiKey = "${API_KEY}"
+          }
+          EOF
+
       - name: Generar proyecto Xcode
         run: |
           brew install xcodegen

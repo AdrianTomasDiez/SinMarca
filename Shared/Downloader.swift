@@ -1,9 +1,7 @@
 import Foundation
 import Photos
 
-enum Settings {
-    static let defaultServer = "http://192.168.1.15:9000"
-}
+// Config (servidor y clave) la genera GitHub Actions desde sus secretos: ver .github/workflows/build.yml.
 
 @MainActor
 enum Downloader {

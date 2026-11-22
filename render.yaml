@@ -1,0 +1,15 @@
+# Blueprint de Render: servidor cobalt gratis (Render → New → Blueprint → este repo).
+services:
+  - type: web
+    name: saver
+    runtime: docker
+    plan: free
+    rootDir: cloud # solo se vuelve a desplegar cuando cambia la carpeta cloud
+    dockerfilePath: ./cloud/Dockerfile
+    dockerContext: ./cloud
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: "7860"
+      - key: KEYS_JSON # Render la pide al crear: pega el contenido de server/keys.json
+        sync: false

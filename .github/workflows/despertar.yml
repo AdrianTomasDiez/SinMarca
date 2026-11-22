@@ -1,0 +1,14 @@
+# Render duerme el servidor gratis tras 15 min sin uso; esta visita periódica lo mantiene despierto.
+name: Mantener despierto el servidor
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    if: vars.SERVER_URL != ''
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS --max-time 120 "${{ vars.SERVER_URL }}" > /dev/null

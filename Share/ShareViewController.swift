@@ -71,7 +71,7 @@ struct ShareView: View {
             guard let link = await sharedLink() else { throw Failure("No he encontrado ningún enlace.") }
             // shortcut: la extensión no ve los ajustes de la app (haría falta un App Group, que
             // Sideloadly con Apple ID gratis no garantiza); usa el servidor por defecto.
-            try await Downloader.save(link: link, server: Settings.defaultServer, apiKey: "") { status = $0 }
+            try await Downloader.save(link: link, server: Config.server, apiKey: Config.apiKey) { status = $0 }
             status = "Guardado en Fotos"
             state = 1
             try? await Task.sleep(nanoseconds: 1_200_000_000)

@@ -34,5 +34,13 @@ Con Apple ID gratuito la app caduca a los 7 días: vuelve a instalarla con Sidel
 - **Desde Saver:** copia el enlace → abre Saver → **Pegar** → **Descargar a Fotos**.
 
 Abre Saver una vez antes de usar Compartir, para aceptar los permisos de red local y de Fotos.
-Compartir usa siempre el servidor `192.168.1.15:9000`; si cambia la IP, cámbiala en
-`Shared/Downloader.swift` (`defaultServer`).
+El servidor y la clave se meten en la app al compilar, desde GitHub:
+Settings → Secrets and variables → Actions → variable `SERVER_URL` y secreto `COBALT_API_KEY`.
+
+## Servidor en la nube (Render, gratis)
+
+1. En https://dashboard.render.com → **New → Blueprint** → elige este repositorio.
+2. Cuando pida `KEYS_JSON`, pega el contenido de `server/keys.json`.
+3. La dirección queda como `https://saver-xxxx.onrender.com`. Ponla en la variable `SERVER_URL` de GitHub.
+
+`.github/workflows/despertar.yml` lo visita cada 10 minutos para que no se duerma.
