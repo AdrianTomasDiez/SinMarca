@@ -14,3 +14,5 @@ services:
         value: "7860"
       - key: KEYS_JSON # Render la pide al crear: pega el contenido de server/keys.json
         sync: false
+      # Opcional, se añade a mano en Environment: sesión de X para vídeos +18 (ver ATAJO.md)
+      # COOKIES_JSON = {"twitter":["auth_token=…; ct0=…"]}

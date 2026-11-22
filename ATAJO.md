@@ -36,6 +36,18 @@ La primera vez iOS pregunta si permites conectarte a `saver-n6tc.onrender.com` y
 **Permitir siempre**.
 
 Si falla, iOS muestra un texto tipo `Error: error.api.…`: ese es el motivo que da el servidor.
+`error.api.fetch.empty` = en ese enlace no hay vídeo visible (fotos, tuit citado, privado o +18).
+
+### Vídeos +18 de X
+
+X solo los enseña con sesión iniciada. Con una cuenta de X (mejor secundaria) en el navegador del PC:
+x.com → F12 → **Application** → **Cookies** → `https://x.com` → copia `auth_token` y `ct0`.
+En Render → servicio **saver** → **Environment** → **Add** `COOKIES_JSON` con:
+
+```
+{"twitter":["auth_token=PEGA-AQUI; ct0=PEGA-AQUI"]}
+```
+**Save and deploy**. Si cierras sesión en esa cuenta, las cookies dejan de valer y hay que repetirlo.
 
 ## 4. Pasárselo a un amigo
 

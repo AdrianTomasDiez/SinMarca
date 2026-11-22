@@ -11,4 +11,5 @@ ENV PORT=7860 \
 COPY helper.mjs /app/helper.mjs
 
 # La clave llega como secreto (no va en el código) y se escribe al arrancar.
-CMD ["sh", "-c", "printf '%s' \"$KEYS_JSON\" > /tmp/keys.json && export API_URL=\"${API_URL:-$RENDER_EXTERNAL_URL/}\" && exec node helper.mjs"]
+# COOKIES_JSON (opcional) = sesión de X para vídeos +18: {"twitter":["auth_token=…; ct0=…"]}
+CMD ["sh", "-c", "printf '%s' \"$KEYS_JSON\" > /tmp/keys.json && if [ -n \"$COOKIES_JSON\" ]; then printf '%s' \"$COOKIES_JSON\" > /tmp/cookies.json && export COOKIE_PATH=/tmp/cookies.json; fi && export API_URL=\"${API_URL:-$RENDER_EXTERNAL_URL/}\" && exec node helper.mjs"]
