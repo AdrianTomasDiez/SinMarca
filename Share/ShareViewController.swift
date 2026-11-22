@@ -54,21 +54,31 @@ struct ShareView: View {
         .background { Backdrop() }
         .tint(.brandViolet)
         .animation(.spring(duration: 0.4), value: state)
-        .sensoryFeedback(trigger: state) { _, new in new == 1 ? .success : new == 2 ? .error : nil }
-        .task {
-            do {
-                guard let link = await sharedLink() else { throw Failure("No he encontrado ningún enlace.") }
-                // shortcut: la extensión no ve los ajustes de la app (haría falta un App Group, que
-                // Sideloadly con Apple ID gratis no garantiza); usa el servidor por defecto.
-                try await Downloader.save(link: link, server: Settings.defaultServer, apiKey: "") { status = $0 }
-                status = "Guardado en Fotos"
-                state = 1
-                try? await Task.sleep(nanoseconds: 1_200_000_000)
-                close()
-            } catch {
-                status = error.localizedDescription
-                state = 2
-            }
+        .sensoryFeedback(trigger: state, feedback)
+        .task { await run() }
+    }
+
+    func feedback(_ old: Int, _ new: Int) -> SensoryFeedback? {
+        switch new {
+        case 1: return .success
+        case 2: return .error
+        default: return nil
+        }
+    }
+
+    func run() async {
+        do {
+            guard let link = await sharedLink() else { throw Failure("No he encontrado ningún enlace.") }
+            // shortcut: la extensión no ve los ajustes de la app (haría falta un App Group, que
+            // Sideloadly con Apple ID gratis no garantiza); usa el servidor por defecto.
+            try await Downloader.save(link: link, server: Settings.defaultServer, apiKey: "") { status = $0 }
+            status = "Guardado en Fotos"
+            state = 1
+            try? await Task.sleep(nanoseconds: 1_200_000_000)
+            close()
+        } catch {
+            status = error.localizedDescription
+            state = 2
         }
     }
 

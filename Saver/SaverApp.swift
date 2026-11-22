@@ -49,12 +49,14 @@ struct ContentView: View {
             }
         }
         .tint(.brandViolet)
-        .sensoryFeedback(trigger: phase) { _, new in
-            switch new {
-            case .done: .success
-            case .failed: .error
-            default: nil
-            }
+        .sensoryFeedback(trigger: phase, feedback)
+    }
+
+    func feedback(_ old: Phase, _ new: Phase) -> SensoryFeedback? {
+        switch new {
+        case .done: return .success
+        case .failed: return .error
+        default: return nil
         }
     }
 
