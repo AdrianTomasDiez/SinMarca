@@ -13,17 +13,18 @@ Pulsa **ⓘ** y activa **Mostrar en hoja de compartir**. Arriba aparecerá *Reci
 - Toca el tipo y deja marcados solo **URL** y **Texto**.
 - En *Si no hay entrada*, elige **Obtener portapapeles** (así también funciona copiando el enlace y abriendo el atajo).
 
-## 2. Las 4 acciones
+## 2. Las 2 acciones
 
-1. **Obtener URL de la entrada** (entrada: *Entrada del atajo*).
-2. **Obtener elemento de la lista** → *Primer elemento*.
-3. **Obtener contenido de la URL**, con esta URL (cambia `TU-CLAVE` y, al final, inserta la variable
-   *Elemento de la lista* tocando el campo → *Seleccionar variable*):
+1. **Obtener contenido de la URL**. En el campo URL pega esto (con tu clave en vez de `TU-CLAVE`):
 
    ```
-   https://saver-n6tc.onrender.com/descargar?key=TU-CLAVE&url=[Elemento de la lista]
+   https://saver-n6tc.onrender.com/descargar?key=TU-CLAVE&url=
    ```
-4. **Guardar en el álbum de fotos**.
+   Con el cursor al final, toca **Entrada del atajo** en la barra de encima del teclado.
+   Debe quedar `…&url=` seguido de una burbuja azul **Entrada del atajo**.
+2. **Guardar en el álbum de fotos**.
+
+(El servidor saca el enlace del vídeo aunque la app comparta un texto con el enlace dentro.)
 
 Listo. Si el servidor estaba dormido, la primera vez puede tardar hasta un minuto.
 En carruseles de Instagram el atajo guarda solo el primer elemento (la app Saver los guarda todos).
