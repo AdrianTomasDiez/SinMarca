@@ -14,11 +14,15 @@ function send(res, code, text) {
 }
 
 async function descargar(req, res) {
-  const key = new URL(req.url, "http://x").searchParams.get("key");
-  // url va al final y se toma entera: el enlace de TikTok/X puede traer sus propios ? y &.
-  const i = req.url.indexOf("url=");
-  const link = i < 0 ? "" : decodeURIComponent(req.url.slice(i + 4));
-  if (!key || !link) return send(res, 400, "Error: falta key o url");
+  // Atajos a veces codifica la dirección (&, =, :, /…): se decodifica entera y se buscan las piezas.
+  let raw = req.url;
+  try { raw = decodeURIComponent(raw); } catch {}
+  const key = raw.match(/key=([0-9a-f-]{36})/i)?.[1];
+  const link = raw.match(/https?:\/\/\S+/)?.[0]; // el primer enlace es el del vídeo (puede traer sus ? y &)
+  if (!key || !link) {
+    const seen = raw.replace(/key=[0-9a-f-]*/i, "key=…");
+    return send(res, 400, `Error: falta ${key ? "el enlace del vídeo" : "la clave"}. Ha llegado: ${seen}`);
+  }
 
   const r = await fetch(COBALT + "/", {
     method: "POST",
