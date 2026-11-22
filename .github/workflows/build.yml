@@ -2,6 +2,7 @@ name: Compilar IPA
 
 on:
   push:
+    paths-ignore: ["**.md", "server/**", "cloud/**", "render.yaml", ".github/workflows/despertar.yml"]
   workflow_dispatch:
 
 jobs:
