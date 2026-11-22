@@ -1,0 +1,26 @@
+# XcodeGen genera el .xcodeproj a partir de este archivo (en GitHub Actions).
+name: SinMarca
+options:
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  SinMarca:
+    type: application
+    platform: iOS
+    sources: [SinMarca]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.sinmarca.app
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        TARGETED_DEVICE_FAMILY: "1"
+    info:
+      path: SinMarca/Info.plist
+      properties:
+        CFBundleDisplayName: SinMarca
+        UILaunchScreen: {}
+        NSPhotoLibraryAddUsageDescription: Para guardar los vídeos descargados en Fotos.
+        NSLocalNetworkUsageDescription: Para conectar con tu servidor cobalt en casa.
+        # El servidor de casa va por http, no https.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true

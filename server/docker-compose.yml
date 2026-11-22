@@ -1,0 +1,28 @@
+# Servidor cobalt (basado en docs/examples/docker-compose.example.yml del proyecto cobalt).
+# Arrancar:  docker compose up -d   (desde esta carpeta)
+services:
+  cobalt:
+    image: ghcr.io/imputnet/cobalt:11
+    init: true
+    read_only: true
+    restart: unless-stopped
+    container_name: cobalt
+    ports:
+      - 9000:9000/tcp
+    environment:
+      # La IP de este PC en tu wifi. Si cambia, cámbiala aquí y en la app.
+      API_URL: "http://192.168.1.15:9000/"
+      # Para Instagram, si da error: crea cookies.json y descomenta estas líneas y "volumes".
+      # COOKIE_PATH: "/cookies.json"
+    # volumes:
+    #   - ./cookies.json:/cookies.json
+    labels:
+      - com.centurylinklabs.watchtower.scope=cobalt
+
+  # Actualiza cobalt solo, porque TikTok/X/Instagram cambian a menudo.
+  watchtower:
+    image: ghcr.io/containrrr/watchtower
+    restart: unless-stopped
+    command: --cleanup --scope cobalt --interval 900 --include-restarting
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

@@ -1,0 +1,6 @@
+SinMarca.xcodeproj/
+SinMarca/Info.plist
+build/
+Payload/
+*.ipa
+server/cookies.json
